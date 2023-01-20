@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
       @comment = @article.comments.find(params[:id])
       @comment.destroy
 
-      render json: @comment, status: :ok
+      render json: @comment, status: :no_content
     end
   
     private

@@ -19,11 +19,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit
-    @article = Article.find(params[:id])
-    render json: @article, status: :ok
-  end
-
   def update
     @article = Article.find(params[:id])
 
@@ -38,7 +33,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy
 
-    render json: @article, status: :ok
+    render json: @article, status: :no_content
   end
 
   private
