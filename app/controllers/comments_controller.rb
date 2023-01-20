@@ -2,14 +2,16 @@ class CommentsController < ApplicationController
     def create
       @article = Article.find(params[:article_id])
       @comment = @article.comments.create(comment_params)
-      redirect_to article_path(@article)
+      
+      render json: @comment, status: :created
     end
   
     def destroy
       @article = Article.find(params[:article_id])
       @comment = @article.comments.find(params[:id])
       @comment.destroy
-      redirect_to article_path(@article), status: :see_other
+
+      render json: @comment, status: :ok
     end
   
     private

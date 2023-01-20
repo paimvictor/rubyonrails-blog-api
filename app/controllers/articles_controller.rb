@@ -1,10 +1,12 @@
 class ArticlesController < ApplicationController
   def index
     @articles = Article.all
+    render json: @articles, status: :ok
   end
 
   def show
     @article = Article.find(params[:id])
+    render json: @article, status: :ok
   end
 
   def new
@@ -15,23 +17,24 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to @article
+      render json: @article, status: :created
     else
-      render :new, status: :unprocessable_entity
+      render json: @article.errors, status: :unprocessable_entity
     end
   end
 
   def edit
     @article = Article.find(params[:id])
+    render json: @article, status: :ok
   end
 
   def update
     @article = Article.find(params[:id])
 
     if @article.update(article_params)
-      redirect_to @article
+      render json: @article, status: :ok
     else
-      render :edit, status: :unprocessable_entity
+      render json: @article.errors, status: :unprocessable_entity
     end
   end
 
@@ -39,7 +42,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy
 
-    redirect_to root_path, status: :see_other
+    render json: @article, status: :ok
   end
 
   private
